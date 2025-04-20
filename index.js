@@ -85,10 +85,10 @@ drawPlayer_circle(player);
 
 // player movement
 document.addEventListener("keydown", (e) => {
-    if (e.key == "w") player.y--;
-    if (e.key == "a") player.x--;
-    if (e.key == "s") player.y++;
-    if (e.key == "d") player.x++;
+    if (e.key == "w" && player.y > 0) player.y--;
+    if (e.key == "a" && player.x > 0) player.x--;
+    if (e.key == "s" && player.y < no_cols - 1) player.y++;
+    if (e.key == "d" && player.x < no_rows - 1) player.x++;
 
     drawTiles();
     drawPlayer_rect(player);
