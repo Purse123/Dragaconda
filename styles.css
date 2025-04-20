@@ -1,0 +1,16 @@
+body {
+  height: 100vh;
+  background: #3A342F;
+  color: #fff;
+  width: 100%;
+}
+
+button {
+  background-color: #fff;
+}
+button:hover {
+  background-color: #eef;
+  color: #e1e1e1;
+}
+
+/*# sourceMappingURL=styles.css.map */
