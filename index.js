@@ -4,8 +4,8 @@ const ctx = canvas.getContext('2d');
 
 // canvas.height = window.innerHeight;
 // canvas.width = window.innerWidth;
-canvas.height = 500;
-canvas.width = 500;
+canvas.height = 1000;
+canvas.width = 1000;
 
 // pixel initialize
 const tileSize = 30;
@@ -23,13 +23,13 @@ let player = {
     x: RandomInt(no_rows - 2) + 1,
     y: RandomInt(no_cols - 2) + 1,
 
-    // color: "#A22929"           // red
+    color: "#A22929"           // red
     // color: "#531880"           // violet
     // color: "#3873E0"           // cyan
     // color: "#27409C"           // dark blue
     // color: "#A22974"           // pink
     // color: "#832AF8"           // purple
-    color: "#D2B732"           // Yellow
+    // color: "#D2B732"           // Yellow
     // color: "#2DA635"           // light green
     // color: "#1E7D29"           // dark green
 };
