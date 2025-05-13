@@ -128,29 +128,34 @@ const moveInterval = 100; // ms
 
 function drawGameOver() {
     // image
-    const gameOverImage = new Image();
-    gameOverImage.src = "./feelsbadman.jpg";
+    // const gameOverImage = new Image();
+    // gameOverImage.src = "./feelsbadman.jpg";
     
-    const imgWidth = canvas.width;
-    const imgHeight= canvas.height;
+    // const imgWidth = canvas.width;
+    // const imgHeight= canvas.height;
 
-    const x = (canvas.width - imgWidth) / 2;
-    const y = (canvas.height - imgHeight) / 2;
+    // const x = (canvas.width - imgWidth) / 2;
+    // const y = (canvas.height - imgHeight) / 2;
 
-    ctx.drawImage(gameOverImage, x, y, imgWidth, imgHeight);
+    // ctx.drawImage(gameOverImage, x, y, imgWidth, imgHeight);
 
-    // ctx.fillStyle = "rgba(0, 0, 0, 0.75)";
-    // ctx.fillRect(0, 0, canvas.width, canvas.height);
-    // ctx.font = "48px 'Anek Latin'";
-    // ctx.textAlign = "center";
-    // ctx.shadowColor = "transparent";
+    ctx.fillStyle = "rgba(0, 0, 0, 0.75)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.font = "48px 'Anek Latin'";
+    ctx.textAlign = "center";
+    ctx.shadowColor = "transparent";
     
-    // const gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
-    // gradient.addColorStop("0", "#9cff5f");
-    // gradient.addColorStop("1.0", "#53ffe0");
+    const gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
+    gradient.addColorStop("0", "#9cff5f");
+    gradient.addColorStop("1.0", "#53ffe0");
 
-    // ctx.fillStyle = gradient;
-    // ctx.fillText("Game Over shawty...GTFO!!!", canvas.width / 2, canvas.height / 2);
+    ctx.fillStyle = gradient;
+    ctx.fillText("Game Over...GTFO!!!", canvas.width / 2, canvas.height / 2);
+
+    ctx.font = "20px 'Anek Latin'";
+    ctx.textAlign = "center";
+    ctx.fillStyle = 'white';
+    ctx.fillText("Press any key to continue...", canvas.width / 2, canvas.height / 2 + 30);
 
     document.addEventListener("keydown", (e) => {
 	location.reload();
