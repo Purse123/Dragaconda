@@ -5,7 +5,7 @@ const ctx = canvas.getContext('2d');
 const keys = "WASD";
 const directions = ["Front", "Back", "Right", "Left"];
 
-const factor = 50;
+const factor = 80;
 canvas.height = 9 * factor;
 canvas.width = 16 * factor;
 
@@ -18,6 +18,8 @@ const no_rows = Math.floor(canvas.height / (tileSize + gap));
 
 const tiles = [];
 const grid = [];
+
+let isGameOver = false;
 
 function RandomInt(max) {
     return Math.floor(Math.random() * max);
@@ -65,17 +67,23 @@ document.addEventListener("keydown", (e) => {
 function movePlayer() {
     let {x, y} = player;
 
-    if (player.direction == "Front") player.y--;
-    if (player.direction == "Left") player.x--;
-    if (player.direction == "Back") player.y++;
-    if (player.direction == "Right") player.x++;
+    if (player.direction == "Front") y--;
+    if (player.direction == "Left") x--;
+    if (player.direction == "Back") y++;
+    if (player.direction == "Right") x++;
 
-    if (player.x < 0 || player.x >= no_cols || player.y < 0 || player.y >= no_rows) {
+    if (x < 0 || x >= no_cols || y < 0 || y >= no_rows) {
 	console.log("Game Over...GTFO!!!");
+	isGameOver = true;
+	return;
     }
 
-    player.trail.push({ x: player.x, y: player.y });
-    grid[player.y][player.x].trail = true;
+    player.x = x;
+    player.y = y;
+
+    // trail
+    player.trail.push({ x, y });
+    grid[y][x].trail = true;
 }
 
 function drawTileDynamic() {
@@ -116,9 +124,45 @@ function drawTileDynamic() {
 
 // playerspeed calc
 let lastMoveTime = 0;
-const moveInterval = 150; // ms
+const moveInterval = 100; // ms
+
+function drawGameOver() {
+    // image
+    const gameOverImage = new Image();
+    gameOverImage.src = "./feelsbadman.jpg";
+    
+    const imgWidth = canvas.width;
+    const imgHeight= canvas.height;
+
+    const x = (canvas.width - imgWidth) / 2;
+    const y = (canvas.height - imgHeight) / 2;
+
+    ctx.drawImage(gameOverImage, x, y, imgWidth, imgHeight);
+
+    // ctx.fillStyle = "rgba(0, 0, 0, 0.75)";
+    // ctx.fillRect(0, 0, canvas.width, canvas.height);
+    // ctx.font = "48px 'Anek Latin'";
+    // ctx.textAlign = "center";
+    // ctx.shadowColor = "transparent";
+    
+    // const gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
+    // gradient.addColorStop("0", "#9cff5f");
+    // gradient.addColorStop("1.0", "#53ffe0");
+
+    // ctx.fillStyle = gradient;
+    // ctx.fillText("Game Over shawty...GTFO!!!", canvas.width / 2, canvas.height / 2);
+
+    document.addEventListener("keydown", (e) => {
+	location.reload();
+    })
+}
 
 function gameLoop(timestamp) {
+    if (isGameOver) {
+	drawGameOver();
+	return;
+    }
+    
     if (timestamp - lastMoveTime > moveInterval) {
 	movePlayer();
 	lastMoveTime = timestamp;
@@ -128,3 +172,15 @@ function gameLoop(timestamp) {
     requestAnimationFrame(gameLoop);
 }
 requestAnimationFrame(gameLoop);
+
+
+// camera
+const camera = {
+    x: 0,
+    y: 0
+};
+
+function updateCamera() {
+    camera.x = player.x;
+    camera.y = player.y;
+}
